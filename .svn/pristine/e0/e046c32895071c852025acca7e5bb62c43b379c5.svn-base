@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCenterEmployeeSalarayTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+
+
+
+
+
+
+
+
+
+
+
+    public function up()
+    {
+        Schema::create('center_employee_salaray_tb', function (Blueprint $table) {
+            $table->increments('tag_no');
+            $table->string('salaray_type_name');
+            $table->float('salaray_ratio')->nullable();
+            $table->integer('month_no')->nullable();
+            $table->integer('salaray_value')->nullable();
+
+            $table->integer('branch_id');
+            $table->integer('emp_no');
+            $table->integer('user_inserted');
+            $table->integer('user_updated');
+
+            $table->foreign('branch_id')->references('branch_id')->on('center_branch_tb');
+            $table->foreign('emp_no')->references('emp_no')->on('center_employee_tb');
+            $table->foreign('user_inserted')->references('user_inserted')->on('users');
+            $table->foreign('user_updated')->references('user_updated')->on('users');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('center_employee_salaray_tb');
+    }
+}

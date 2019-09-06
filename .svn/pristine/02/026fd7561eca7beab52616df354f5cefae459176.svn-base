@@ -1,0 +1,93 @@
+<?php $__env->startSection('content'); ?>
+    
+    <validation class="validation hide">
+        <error class="validation-error">
+            <div class="form-control-feedback">
+                <i class="icon-cancel-circle2"></i>
+            </div>
+            <span class="help-block">Error input</span>
+        </error>
+    </validation>
+    
+
+
+    <!-- Main charts -->
+
+
+    <div class="col-lg-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Daily sales stats</h6>
+
+
+                <div class="heading-elements">
+
+                    <span class="heading-text">قائمة المستخدمين</span>
+
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div id="sales-heatmap"></div>
+            </div>
+
+            <table class="table datatable-show-all">
+                <thead>
+                <tr>
+                    <th>صورة المستخدم</th>
+                    <th>إسم المستخدم</th>
+                    <th>البريد الالكتروني</th>
+                    <th>رقم الجوال</th>
+                    <th>الحالة</th>
+                    <th class="text-left">عمليات</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php $__currentLoopData = $all_users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td>
+                            <?php if($item->img == 'default_user.png'): ?>
+                                <?php $url = 'images/default_user.png' ?>
+                            <?php else: ?>
+                                <?php  $url = 'uploads/users/'.$item->img  ?>
+                            <?php endif; ?>
+
+
+                            <img src="<?php echo e(asset($url)); ?>" alt="<?php echo e($item->name); ?>" style="width: 40px" /></td>
+                        <td><?php echo e($item->name); ?></td>
+                        <td><?php echo e($item->email); ?></td>
+                        <td><?php echo e($item->phone); ?></td>
+                        <td>
+                            <?php if($item->status == 'active'): ?><span class="label label-success">مفعل</span> <?php else: ?> <span class="label label-default">معطل</span> <?php endif; ?>
+                        </td>
+                        <td class="">
+
+                            <a href="/permissions/<?php echo e($item->id); ?>/tree"  class="">
+                                <i class="icon-alignment-unalign grant-icon"></i>
+                            </a>
+                            
+                            
+                            
+
+
+                        </td>
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <!-- /main charts -->
+
+
+    <!-- Footer -->
+
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layouts.main',['title' => 'قائمة المستخدمين' , 'js'=>'permissions'], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
