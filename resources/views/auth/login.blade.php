@@ -70,7 +70,7 @@
 <html >
 <head>
     <meta charset="UTF-8">
-    <title>تعليمي دوت كوم</title>
+    <title>Click Shop</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
@@ -83,15 +83,15 @@
 
 
 </head>
-<body style="background-image: url('{{asset("/images/educational_image2.jpg")}}'); background-size: contain;">
+<body style="background-image: url('{{asset("/images/educational_image2.jpg")}}'); background-size: auto;">
 
 <div class="container">
     <div class="info">
-        <h1>تعليمي دوت كوم</h1>
+        <h1>كليك شوب</h1>
     </div>
 </div>
 <div class="form">
-    <div class="thumbnail"><img src="{{ asset("/images/logo_light2.png") }}"/></div>
+    <div class="thumbnail" style="    padding: 34px 0px !important;"><img src="{{ asset("/images/logo_light.png") }}"/></div>
     <form class="login-form form-horizontal" role="form" method="POST" action="{{ route('login') }}" >
         {{ csrf_field() }}
         @if($errors->has('name') || $errors->has('password'))
@@ -107,14 +107,8 @@
         {{--<p class="message">Not registered? <a href="#">Create an account</a></p>--}}
         <div class="form-group">
             <div class="remember-me">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} style="    width: 20px;    margin: 5px 0px;"> تذكرني
-                    </label>
-                </div>
-                <a class="btn btn-link" href="{{ route('password.request') }}" style="font-size: 10px;">
-                    هل نسيت كلمة المرور?
-                </a>
+
+
             </div>
          
         </div>

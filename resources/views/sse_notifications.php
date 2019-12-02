@@ -1,0 +1,1 @@
+<?phpheader('Content-Type: text/event-stream');header('Cache-Control: no-cache');$time = date('r');echo "data: {$notifications}\n\n";flush();?><!--$Count_Notifications = CommonFunctions::get_count_notifications();-->

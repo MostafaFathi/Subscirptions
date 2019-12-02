@@ -18,10 +18,9 @@ class UserController extends Controller
     //
 
     public function manage(){
-        $center_id = Auth::user()->center_id;
-        $users_array = User::where('center_id' , '=' , $center_id )->get();
-        $branches = Center_branch_tb::where('center_id' , '=' , $center_id)->get();
-        $arr = ['users_array'=>$users_array,'branches'=>$branches];
+//        $users_array = User::where('is_delete' , '=' , 0 )->get();
+        $users_array = User::all();
+        $arr = ['users_array'=>$users_array];
         return view('users.show',$arr);
     }
 
@@ -41,7 +40,6 @@ class UserController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
-        $user->center_id = Auth::user()->center_id;
         $user->gender = $request->input('gender');
         $user->img = 'default_user.png';
 
@@ -68,28 +66,18 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        $flag = $this->checkUserCenter($id);
-        if($flag) {
             $user = User::find($id);
             $user->delete($user);
             Center_branch_users_tb::where('user_id', '=', $id)->delete();
             $result = 'success';
-        }
         echo json_encode(['result'=>$result]);
     }
 
     public function edit($id)
     {
-        $user_center = User::where('center_id','=',Auth::user()->center_id)->where('id','=',$id)->get();
-         $flag = false;
-        $result = array();
-        foreach($user_center as $item){
-            $flag= true;
+        $user_center = User::where('id','=',$id)->get();
+        $result = $user_center;
 
-        }
-        if($flag) {
-            $result = $user_center;
-        }
         echo json_encode(['result'=>$result]);
     }
 
@@ -97,9 +85,6 @@ class UserController extends Controller
     {
         $id =  $request->input('id');
 
-        $flag = $this->checkUserCenter($id);
-        $result = 'fail';
-        if($flag) {
             $result = 'success';
             $this->validate($request,[
                 'name'=>'required|max:20|min:3|alpha_num',
@@ -125,9 +110,7 @@ class UserController extends Controller
             $user->password = bcrypt($request->input('password'));
             $user->email = $request->input('email');
             $user->phone = $request->input('phone');
-            //$user->center_id = Auth::user()->center_id;
             $user->gender = $request->input('gender');
-           // $user->img = 'default_user.png';
             if($request->file('img') != null){
                 $image = $request->file('img');
                 $filename  = time() . '.jpg' ;//. $image->getClientOriginalExtension();// get name and extention // save all images in jpg format
@@ -140,8 +123,7 @@ class UserController extends Controller
             }
             $user->save();
 
-        }
-         echo json_encode(['result'=>$result,'user'=>$user]);
+          echo json_encode(['result'=>$result,'user'=>$user]);
 
     }
 

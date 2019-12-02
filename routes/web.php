@@ -12,62 +12,71 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $requests = DB::table('requests')
+        ->where('is_confirmed','==',0)
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return view('home',['requests'=>$requests]);
+})->middleware('auth');
+Route::get('/home', function () {
+    $requests = DB::table('requests')
+        ->where('is_confirmed','==',0)
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return view('home',['requests'=>$requests]);
+})->middleware('auth');
+Route::get('/req', function () {
+    $request_id= DB::table('requests')->max('request_id');
+
+    return $request_id;
+})->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 // users routes
-Route::get('/users','UserController@manage')->middleware('auth','permission:Screen_69,[],screen_level');
-Route::post('/users','UserController@save')->middleware('auth',"permission:Screen_69,Add,operation_level");
-Route::post('/users/update','UserController@update')->middleware('auth',"permission:Screen_69,Edit,operation_level");
-Route::get('/users/{id}/delete','UserController@delete')->middleware('auth',"permission:Screen_69,Delete,operation_level");
-Route::get('/users/{id}/edit','UserController@edit')->middleware('auth',"permission:Screen_69,Edit,operation_level");
+Route::get('/users','UserController@manage')->middleware('auth');
+Route::post('/users','UserController@save')->middleware('auth');
+Route::post('/users/update','UserController@update')->middleware('auth');
+Route::get('/users/{id}/delete','UserController@delete')->middleware('auth');
+Route::get('/users/{id}/edit','UserController@edit')->middleware('auth');
 
-
-//branches routes
-Route::get('/users/branches','UserController@manageBranches')->middleware('auth');
-Route::post('/users/branches/add','UserController@saveBranches')->middleware('auth');
-Route::get('/users/branch/{id}/{cascade}/delete','UserController@deleteBranch')->middleware('auth');
-Route::post('/users/branches/update','UserController@updateBranch')->middleware('auth');
-Route::get('/users/branch/{id}/edit','UserController@editBranch')->middleware('auth');
-Route::get('/users/{id}/branches','UserController@user_branches')->middleware('auth');
-Route::post('/users/{id}/branches/update','UserController@updateUserBranch')->middleware('auth');
-
-
-
-
-//centers routes
-Route::get('/center','CenterController@manage')->middleware('auth');
-Route::post('/center/add','CenterController@save')->middleware('auth');
-Route::post('/center/update','CenterController@update')->middleware('auth');
-Route::get('/center/{key}/{source}/{last_id}/search','CenterController@search')->middleware('auth');
-Route::get('/center/{id}/edit','CenterController@edit')->middleware('auth');
-Route::get('/center/opening','CenterController@open_center')->middleware('auth');
-Route::post('/center/opening/update','CenterController@open_center_update')->middleware('auth');
-
-//permissions routes
-Route::get('/permissions','PermissionController@index')->middleware('auth');
-Route::post('/permissions/add','PermissionController@save')->middleware('auth');
-Route::post('/permissions/{id}/update','PermissionController@update')->middleware('auth');
-Route::get('/permissions/{id}/edit','PermissionController@edit')->middleware('auth');
-Route::get('/permissions/users','PermissionController@users_list')->middleware('auth');
-Route::get('/permissions/{id}/tree','PermissionController@manage_tree')->middleware('auth');
-Route::post('/permissions/users/{id}/edit','PermissionController@update_user_permissions')->middleware('auth');
 
 //students route
-Route::get('/students','StudentController@index')->middleware('auth');
-Route::get('/students/manage','StudentController@manage')->middleware('auth');
-Route::post('/students/add','StudentController@save')->middleware('auth');
-Route::post('/students/{id}/renew','StudentController@renew_registration')->middleware('auth');
-Route::post('/students/{id}/update','StudentController@update')->middleware('auth');
-Route::get('/students/{id}/recycle','StudentController@recycle_bin')->middleware('auth');
-Route::get('/students/{id}/undo_recycle','StudentController@undo_recycle_bin')->middleware('auth');
-Route::get('/students/recycle','StudentController@recycle')->middleware('auth');
-Route::get('/students/{student_name}/search/basic','StudentController@basic_search')->middleware('auth');
+Route::get('/products','ProductsController@index')->middleware('auth');
+Route::post('/products/add','ProductsController@save')->middleware('auth');
+Route::get('/products/manage','ProductsController@manage')->middleware('auth');
+Route::post('/products/{id}/update','ProductsController@update')->middleware('auth');
+Route::get('/products/{id}/delete','ProductsController@recycle_bin')->middleware('auth');
+Route::get('/getSubMain/{id}','ProductsController@getSubSections')->middleware('auth');
+Route::get('/getBranches/{id}','ProductsController@getBranches')->middleware('auth');
 
+
+Route::get('/restaurant','ProductsController@restaurants')->middleware('auth');
+Route::get('/restaurant/manage','ProductsController@manage_restaurants')->middleware('auth');
+Route::post('/restaurant/add','ProductsController@restaurantSave')->middleware('auth');
+Route::post('/restaurant/{id}/update','ProductsController@restaurantUpdate')->middleware('auth');
+Route::get('/restaurant/{id}/delete','ProductsController@restaurantRecycle_bin')->middleware('auth');
+
+Route::get('/branches','ProductsController@branches')->middleware('auth');
+Route::post('/branches/add','ProductsController@branchSave')->middleware('auth');
+Route::get('/branches/manage','ProductsController@manage_branches')->middleware('auth');
+Route::post('/branches/{id}/update','ProductsController@branchesUpdate')->middleware('auth');
+Route::get('/branches/{id}/delete','ProductsController@branchesRecycle_bin')->middleware('auth');
+
+Route::get('/app_users','ProductsController@app_users')->middleware('auth');
+
+Route::get('/requests/{id}/certify','ProductsController@certifyRequests')->middleware('auth');
+Route::get('/sse_notifications','ProductsController@sse_all_notifications')->middleware('auth');
+Route::get('/allRequests','ProductsController@getAllConfirmedRequests')->middleware('auth');
+
+Route::get('/commition','ProductsController@commition')->middleware('auth');
+Route::post('/commition/update','ProductsController@commitionUpdate')->middleware('auth');
+
+Route::post('/timesWork/update','ProductsController@timesWorkUpdate')->middleware('auth');
+Route::get('/times_of_work','ProductsController@times_of_work')->middleware('auth');
 
 //teachers route
 Route::get('/teachers','TeacherController@index')->middleware('auth');

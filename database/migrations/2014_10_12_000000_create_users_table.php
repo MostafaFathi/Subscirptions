@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('gender',2)->default('m');
             $table->string('img')->default('default_user.png');
-            $table->integer('center_id')->default(0);
+            $table->integer('is_delete')->default(0);
             $table->integer('phone')->default(599);
             $table->string('language')->default('ar');
             $table->string('privilege_type')->default('normal');

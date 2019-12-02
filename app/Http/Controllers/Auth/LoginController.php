@@ -50,12 +50,8 @@ class LoginController extends Controller
     }
     protected function authenticated()
     {
-        if(!session()->has('permissions')) {
-        CommonFunctions::get_permissions();
-        }
-        if(!session()->has('open_start_date')){
-            CommonFunctions::get_open_end_dates();
-        }
+
+
     }
 
 

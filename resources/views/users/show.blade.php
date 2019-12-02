@@ -18,7 +18,6 @@
             <div class="col-lg-7">
                 {{--add users form --}}
                 <?php $hide_show = 'show' ?>
-                @if(CommonFunctions::has_permissions('Screen_69',["Add"],'operation_level'))
                     <?php $hide_show = 'hide' ?>
                 <form action="post" id="users_submit_form" class="form-horizontal form-validate-jquery" enctype="multipart/form-data">
                     {{ csrf_field() }}
@@ -101,11 +100,9 @@
                         </div>
                     </div>
                 </form>
-                @endif
                 {{--end add users form--}}
 
                 {{--update users form--}}
-                @if(CommonFunctions::has_permissions('Screen_69',["Edit"],'operation_level'))
                 <form action="post" id="users_update_form" class="form-horizontal form-validate-jquery {{ $hide_show }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="panel panel-flat " id="users_update_container" >
@@ -142,17 +139,6 @@
                                     <input type="number" id="phone" name="phone" class="form-control" placeholder="0599112233">
                                 </div>
                             </div>
-                            {{--<div class="form-group">--}}
-                                {{--<label class="col-lg-3 control-label">الفرع:</label>--}}
-                                {{--<div class="col-lg-9">--}}
-                                    {{--<select id="branch_id" name="branch_id" class="select">--}}
-                                        {{--@foreach($branches as $item)--}}
-                                            {{--<option value="{{ $item['branch_id'] }}">{{ $item['branch_name'] }}</option>--}}
-                                        {{--@endforeach--}}
-
-                                    {{--</select>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">الجنس:</label>
@@ -201,9 +187,6 @@
                         <span class="text-semibold"><i class="icon-spinner10 spinner no-edge-top"></i></span>
                     </div>
                 </form>
-                @endif
-                {{--end update users form--}}
-                <!-- /traffic sources -->
 
             </div>
 
@@ -211,11 +194,9 @@
                 <div class="panel panel-flat">
                     <div class="panel-heading">
                         <h6 class="panel-title">Daily sales stats</h6>
-                        @if(CommonFunctions::has_permissions('Screen_69',["Add"],'operation_level'))
                         <button type="button" class="btn bg-green-400 btn-labeled new-user-btn" style="float:left;margin-top: -25px;">
                             <b><i class=" icon-user-plus"></i></b> جديد
                         </button>
-                        @endif
                         <div class="heading-elements">
 
                             <span class="heading-text">قائمة المستخدمين</span>
@@ -260,21 +241,15 @@
                                 </td>
                                 <td>
                                     <h6 class="text-semibold no-margin">
-                                        @if(CommonFunctions::has_permissions('Screen_69',["Edit"],'operation_level'))
-                                         <a href="#"  class="branch-user-btn" data-popup="tooltip" title="تنسيب فروع"  data-toggle="modal" data-target="#modal_branches">
-                                                    <i class="  icon-tree6 branch-user-icon"></i>
-                                         </a>
+
                                         <a href="#"  class="update-user-btn" data-popup="tooltip" title="تعديل">
                                             <i class="  icon-pencil7 update-icon"></i>
                                         </a>
-                                        @endif
-                                        @if(CommonFunctions::has_permissions('Screen_69',["Delete"],'operation_level'))
                                         <a href="#"  class="sweet_combine" data-popup="tooltip" title="حذف">
                                             <i class=" icon-user-cancel delete-icon"></i>
                                         </a>
 
 
-                                        @endif
                                         <input type="hidden" name="user_id" class="user_id" value="{{$item['id']}}" /></h6>
                                 </td>
                             </tr>
@@ -292,45 +267,6 @@
         <!-- /main charts -->
 
 
-    <div id="modal_branches" class="modal fade">
-        <div class="modal-dialog" >
-            <div class="modal-content" >
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h5 class="modal-title">قائمة الفروع المسموحة</h5>
-                    <p>يستطيع المستخدم رؤية جميع البيانات المنتسبة للفروع المختارة</p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel-body">
-                            <form action="post" id="user_branch_submit_form" class="form-horizontal form-validate-jquery" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">الفروع</label>
-                                <div class="col-lg-10">
-                                    <select name="branch_id[]" multiple="multiple" id="select-branch-id" class="select">
-                                        @foreach($branches as $item)
-                                        <option value="{{ $item->branch_id }}">{{ $item->branch_name }}</option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="text-right" style="margin-top: 80px;border-top: 1px solid #ddd;padding-top: 10px;">
-                                <button type="submit"  class="btn btn-primary">
-                                    <i class=" icon-floppy-disk position-right" style="margin-top: 2px"></i>
-                                    حفظ
-                                    <i class="icon-spinner2 spinner position-left hide loader" style="margin-top: 3px;float: left;"></i>
-                                </button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-                </div>
-        </div>
     </div>
 
 
