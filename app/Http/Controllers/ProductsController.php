@@ -6,6 +6,7 @@ use App\App_users;
 use App\Commition;
 use App\Products;
 use App\ProductUnit;
+use App\Regions;
 use App\Requests;
 use App\Restaurant;
 use App\TimeWork;
@@ -309,12 +310,24 @@ class ProductsController extends Controller
         return view('products.add_branches',['rest'=>$rest]);
     }
 
+    public function  addRegion()
+    {
+
+        return view('products.add_regions');
+    }
+
     public function manage_branches()
     {
 
         $restaurant = Restaurant::where('is_branch','=',1)->get();
         $branches = Restaurant::where('is_branch','=',0)->where('has_branches','=',0)->get();
         return view('products.manage_branches',['restaurant'=>$restaurant,'branches'=>$branches]);
+    }
+    public function manage_regions()
+    {
+
+        $regions = Regions::all();
+        return view('products.manage_regions',['regions'=>$regions]);
     }
     public function branchSave(Request $request)
     {
@@ -351,6 +364,8 @@ class ProductsController extends Controller
         echo json_encode(['result'=>'success','product'=>$product]);
     }
 
+
+
     public function branchesUpdate(Request $request,$id)
     {
         $this->validate($request,[
@@ -385,10 +400,49 @@ class ProductsController extends Controller
         echo json_encode(['result'=>'success','rest'=>$product]);
     }
 
+    public function saveRegion(Request $request)
+    {
+        $this->validate($request,[
+            'region_name'=>'required',
+            'region_commission'=>'required'
+        ]);
+        $region = new Regions();
+        $region->region_name  = $request->input('region_name');
+        $region->region_commission  = $request->input('region_commission');
+
+        $region->save();
+
+
+        echo json_encode(['result'=>'success','region'=>$region]);
+    }
+    public function regionUpdate(Request $request,$id)
+    {
+        $this->validate($request,[
+            'region_name'=>'required',
+            'region_commission'=>'required'
+        ]);
+        $region = Regions::find($id);
+        $region->region_name=$request->input('region_name');
+        $region->region_commission  = $request->input('region_commission');
+
+        $region->save();
+
+        echo json_encode(['result'=>'success','rest'=>$region]);
+    }
+
     public function branchesRecycle_bin($restaurant_id)
     {
         $restaurant = Restaurant::find($restaurant_id);
         DB::table('products')->where('product_rest_branch', $restaurant_id)->delete();
+        $restaurant->delete();
+        $result = 'success';
+
+        echo json_encode(['result'=>$result]);
+    }
+
+    public function regionRecycle_bin($region)
+    {
+        $restaurant = Regions::find($region);
         $restaurant->delete();
         $result = 'success';
 

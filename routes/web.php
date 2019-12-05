@@ -72,8 +72,11 @@ Route::get('/requests/{id}/certify','ProductsController@certifyRequests')->middl
 Route::get('/sse_notifications','ProductsController@sse_all_notifications')->middleware('auth');
 Route::get('/allRequests','ProductsController@getAllConfirmedRequests')->middleware('auth');
 
-Route::get('/commition','ProductsController@commition')->middleware('auth');
-Route::post('/commition/update','ProductsController@commitionUpdate')->middleware('auth');
+Route::get('/add_region','ProductsController@addRegion')->middleware('auth');
+Route::post('/region/add','ProductsController@saveRegion')->middleware('auth');
+Route::get('/region/manage','ProductsController@manage_regions')->middleware('auth');
+Route::post('/region/{id}/update','ProductsController@regionUpdate')->middleware('auth');
+Route::get('/region/{id}/delete','ProductsController@regionRecycle_bin')->middleware('auth');
 
 Route::post('/timesWork/update','ProductsController@timesWorkUpdate')->middleware('auth');
 Route::get('/times_of_work','ProductsController@times_of_work')->middleware('auth');

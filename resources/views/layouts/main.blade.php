@@ -190,6 +190,9 @@
                         background-color: rgba(0,0,0,0.1);
                         color: rgb(78, 78, 78) !important;
                     }
+                    .navigation>li.active>a, .navigation>li.active>a:hover, .navigation>li.active>a:focus{
+                        background-color: #dadada !important;
+                    }
                 </style>
                 <!-- Main navigation -->
                 <div class="sidebar-category sidebar-category-visible">
@@ -198,16 +201,34 @@
 
                             <!-- Main -->
                             <li><a href="/"><i class="icon-stack2"></i><span>الطلبات الحالية</span></a></li>
-                            <li><a href="/users"><i class="icon-stack2"></i><span>إدارة المستخدمين</span></a></li>
-                            <li><a href="/commition"><i class="icon-stack2"></i><span>تحديث العمولة</span></a></li>
-                            <li><a href="/times_of_work"><i class="icon-stack2"></i><span>تحديد مواعيد العمل</span></a></li>
-                            <li><a href="/products"><i class="icon-stack2"></i><span>إضافة منتج جديد</span></a></li>
-                            <li><a href="/products/manage"><i class="icon-stack2"></i><span>إدارة المنتجات</span></a></li>
-                            <li><a href="/restaurant"><i class="icon-stack2"></i><span>إضافة قسم جديد</span></a></li>
-                            <li><a href="/restaurant/manage"><i class="icon-stack2"></i><span>إدارة الاقسام</span></a></li>
-                            <li><a href="/branches"><i class="icon-stack2"></i><span>إضافة قسم فرعي جديد</span></a></li>
-                            <li><a href="/branches/manage"><i class="icon-stack2"></i><span>إدارة الاقسام الفرعية</span></a></li>
-                            <li><a href="/app_users"><i class="icon-stack2"></i><span>عرض مستخدمي التطبيق</span></a></li>
+                            <li>
+                                <a href="#"><i class="icon-stack2"></i> <span>ادارة عامة</span></a>
+                                <ul style="    background-color: rgb(247, 247, 247);">
+                                    <li><a href="/users"><i class="icon-stack2"></i><span>إدارة المستخدمين</span></a></li>
+                                    <li><a href="/app_users"><i class="icon-stack2"></i><span> مستخدمي التطبيق</span></a></li>
+                                    <li><a href="/times_of_work"><i class="icon-stack2"></i><span>تحديد مواعيد العمل</span></a></li>
+                                    <li><a href="/add_region"><i class="icon-stack2"></i><span>إضافة مناطق جديدة</span></a></li>
+                                    <li><a href="/region/manage"><i class="icon-stack2"></i><span>إدارة المناطق</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon-stack2"></i> <span>ادارة المنتجات</span></a>
+                                <ul style="    background-color: rgb(247, 247, 247);">
+                                    <li><a href="/products"><i class="icon-stack2"></i><span>إضافة منتج جديد</span></a></li>
+                                    <li><a href="/products/manage"><i class="icon-stack2"></i><span>إدارة المنتجات</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon-stack2"></i> <span>ادارة الاقسام</span></a>
+                                <ul style="    background-color: rgb(247, 247, 247);">
+                                    <li><a href="/restaurant"><i class="icon-stack2"></i><span>إضافة قسم جديد</span></a></li>
+                                    <li><a href="/restaurant/manage"><i class="icon-stack2"></i><span>إدارة الاقسام</span></a></li>
+                                    <li><a href="/branches"><i class="icon-stack2"></i><span>إضافة قسم فرعي جديد</span></a></li>
+                                    <li><a href="/branches/manage"><i class="icon-stack2"></i><span>إدارة الاقسام الفرعية</span></a></li>
+                                </ul>
+                            </li>
+
+
 
 
 

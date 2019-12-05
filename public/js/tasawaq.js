@@ -273,6 +273,51 @@ $(function() {
     });
 
 
+    $(document).on('submit', '#regions_submit_form', function() {
+
+        var submit = $(this).find("button[type='submit'] > .loader");
+        loader(submit,true);// show loader and disable button
+        var navigate_to = base_url;
+        if(add_button)
+            navigate_to+='region/add';
+
+        $.ajax({
+            type: 'post',
+            dataType: "json",
+            url: navigate_to,
+            data: new FormData(this),
+            cache: "false",
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+                var success = data.responseJSON;
+                validation(success,'region_name',true,"#regions_submit_form");
+                validation(success,'region_commission',true,"#regions_submit_form");
+                if(add_button)
+                    notificationMessage('رسالة نجاح','تم إضافة منطقة جديدة بنجاح!','bg-success') ;
+
+
+                loader(submit,false);// hide loader and un-disable button
+                $('#reset-button').click();
+
+            },error:function(data){
+
+                notificationMessage('رسالة خطأ','يوجد خطأ في بعض المدخلات','bg-danger') ;
+
+                var errors = data.responseJSON;
+                validation(errors,'region_name',false,"#regions_submit_form");
+                validation(errors,'region_commission',false,"#regions_submit_form");
+
+                loader(submit,false);// hide loader and un-disable button
+            }
+
+        });
+        return false;
+
+    });
+
+
     $(document).on('submit', '#commition_submit_form', function() {
 
         var submit = $(this).find("button[type='submit'] > .loader");
@@ -512,6 +557,47 @@ $(function() {
 
     });
 
+
+    $(document).on('submit', '.region_update_form', function() {
+        var this_form = $(this);
+        var submit = $(this).find("button[type='submit'] > .loader");
+        var id = $(this).find(".id").val();
+        loader(submit,true);// show loader and disable button
+        $.ajax({
+            type: 'post',
+            dataType: "json",
+            url: base_url+'region/'+id+'/update',
+            data: new FormData(this),
+            cache: "false",
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                this_form.parent().parent().parent().prev().find('.region-name').text(data['rest'].region_name);
+                this_form.parent().parent().parent().prev().find('.region-commission').text(data['rest'].region_commission);
+
+                var success = data.responseJSON;
+                validation(success,'region_name',true,'.region_update_form');
+                validation(success,'region_commission',true,'.region_update_form');
+
+                notificationMessage('رسالة نجاح','تم تعديل المنطقة بنجاح!','bg-success') ;
+                loader(submit,false);// hide loader and un-disable button
+
+            },error:function(data){
+
+                notificationMessage('رسالة خطأ','يوجد خطأ في بعض المدخلات','bg-danger') ;
+
+                var errors = data.responseJSON;
+                validation(errors,'region_name',false,'.region_update_form');
+                validation(errors,'region_commission',false,'.region_update_form');
+
+                loader(submit,false);// hide loader and un-disable button
+            }
+
+        });
+        return false;
+
+    });
+
     $(document).on('click','.delete-product-btn', function() {
         var product_id =  $(this).parent().find('.product_id').val();
         var table_row = $(this);
@@ -635,6 +721,48 @@ $(function() {
                         type: 'get',
                         dataType: "json",
                         url: base_url+ 'branches/'+restaurant_id+'/delete',
+                        data: "",
+                        cache: "false",
+                        success: function(data) {
+                            if(data['result'] == 'success'){
+                                resultMessage("تم الحذف!","لقد قمت بالحذف بنجاح , ستغلق النافذة خلال 3 ثانية","success","#66BB6A",3000);
+                                table_row.parent().parent().next().remove();
+                                table_row.parent().parent().remove();
+                            }
+
+                        }
+
+                    });
+
+                }
+                else {
+                    cancelDelete();
+                }
+            });
+        return false;
+    });
+
+    $(document).on('click','.delete-region-btn', function() {
+        var restaurant_id =  $(this).parent().find('.region_id').val();
+        var table_row = $(this);
+        swal({
+                title: "هل أنت متأكد؟",
+                text: "سيتم حذف المنطقة بشكل نهائي.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#EF5350",
+                confirmButtonText: "نعم, قم بالحذف",
+                cancelButtonText: "لا, إلغاء الامر",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm){
+                if (isConfirm) {
+
+                    $.ajax({
+                        type: 'get',
+                        dataType: "json",
+                        url: base_url+ 'region/'+restaurant_id+'/delete',
                         data: "",
                         cache: "false",
                         success: function(data) {

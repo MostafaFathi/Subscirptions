@@ -32,7 +32,7 @@
             <div class="panel-body">
                 <div id="sales-heatmap"></div>
             </div>
-
+            <div class="table-responsive">
             <table class="table datatable-basic table-bordered dataTable no-footer" id="students-table">
                 <thead>
                 <tr>
@@ -132,7 +132,7 @@
                 </tbody>
             </table>
 
-
+            </div>
         </div>
     </div>
 
