@@ -72,7 +72,7 @@ if($is_opened){
         $address = $request->userInfo['address'];
     }
     $commition = \App\Commition::find(1);
-    $cartTotalCost = $request->cartTotalCost - $commition['value'];
+    $cartTotalCost = $request->cartTotalCost ;
     $request_id= DB::table('requests')->max('request_id');
     $request_id_1 = $request_id + 1;
     foreach (($request->order) as $item) {
@@ -213,6 +213,14 @@ Route::get('/user/orders/{number}', function ($number) {
     $image_link = App::make('url')->to('uploads/products/');
 
     return collect(['data'=>$number,'image_link'=>$image_link]);
+});
+Route::get('/regions', function () {
+
+
+    $regions = DB::table('regions')->get();
+
+
+    return collect(['data'=>$regions]);
 });
 Route::get('/user/orders/info/{request_id}', function ($request_id) {
 
