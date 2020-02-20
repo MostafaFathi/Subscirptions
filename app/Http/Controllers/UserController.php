@@ -67,8 +67,7 @@ class UserController extends Controller
     public function delete($id)
     {
             $user = User::find($id);
-            $user->delete($user);
-            Center_branch_users_tb::where('user_id', '=', $id)->delete();
+            $user->delete();
             $result = 'success';
         echo json_encode(['result'=>$result]);
     }
