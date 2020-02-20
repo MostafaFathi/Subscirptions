@@ -219,6 +219,7 @@
                             </thead>
                             <tbody>
                             @foreach($users_array as $item)
+                                @if($item['is_delete'] == 0)
                             <tr>
                                 <td>
                                     <div class="media-left media-middle" style="padding-right: 0px;">
@@ -253,6 +254,7 @@
                                         <input type="hidden" name="user_id" class="user_id" value="{{$item['id']}}" /></h6>
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
 
 

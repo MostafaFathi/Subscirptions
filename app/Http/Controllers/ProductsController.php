@@ -190,7 +190,7 @@ class ProductsController extends Controller
         ]);
         $product = new Restaurant();
         $product->rest_name  = $request->input('rest_name');
-        $product->discount  = $request->input('discount');
+//        $product->discount  = $request->input('discount');
         $product->main_section  = $request->input('product_section');
         $product->has_branches  = $request->input('has_branches');
         if($request->file('img') != null){
@@ -226,7 +226,7 @@ class ProductsController extends Controller
         ]);
         $rest = Restaurant::find($id);
         $rest->rest_name=$request->input('rest_name');
-        $rest->discount  = $request->input('discount');
+//        $rest->discount  = $request->input('discount');
         $rest->main_section  = $request->input('product_section');
         $rest->has_branches  = $request->input('has_branches');
         if($request->file('img') != null){
@@ -473,11 +473,11 @@ class ProductsController extends Controller
         foreach ($notifications as $key => $item) {
 
             if($item->is_others == 1){
-                $generated_html .= '<tr class="show-details  " style="background-color: #d1ffc6"><td>*</td><td style="direction: ltr; text-align: center;"><span class="product-name" >'.$item->phone_number.'</span></td><td><span class="product-price">'.$item->address.'</span></td><td><span class="unit-id" style="background-color: #E91E63;color: white;padding: 0px 11px;border-radius: 10px;">طلب نصي</span></td><td><span class="">'.$item->created_at.'</span></td><td class="text-center"><a href="#"  class="certify-request-btn" style="margin: 0px 3px;"><i class="  icon-check check-icon" style=" color: green;font-size: 18px;"></i></a><input type="hidden" name="product_id" class="product_id" value="'.$item->id.'" /><input type="hidden" name="request_id" class="request_id" value="'.$item->request_id.'" /></td></tr><tr style="background-color: #f1f1f1" class="hide-td request_'.$item->request_id.'"><td colspan="6" style="text-align: center;"><span style="font-weight: bold">التفاصيل</span></td></tr><tr style="background-color: #f6f6f6" class="hide-td request_'.$item->request_id.'"><td colspan="6" style="text-align: center;"><span style="">'.$item->order_other.'</span></td></tr>';
+                $generated_html .= '<tr class="show-details  " style="background-color: #d1ffc6"><td>*</td><td style="direction: ltr; text-align: center;"><span class="product-name" >'.$item->phone_number.'</span></td><td><span class="product-price">'.$item->address.'</span></td><td><span class="unit-id" style="background-color: #E91E63;color: white;padding: 0px 11px;border-radius: 10px;">طلب نصي</span></td><td><span class="">'.$item->created_at.'</span></td><td>'.$item->hints.'</td><td class="text-center"><a href="#"  class="certify-request-btn" style="margin: 0px 3px;"><i class="  icon-check check-icon" style=" color: green;font-size: 18px;"></i></a><input type="hidden" name="product_id" class="product_id" value="'.$item->id.'" /><input type="hidden" name="request_id" class="request_id" value="'.$item->request_id.'" /></td></tr><tr style="background-color: #f1f1f1" class="hide-td request_'.$item->request_id.'"><td colspan="6" style="text-align: center;"><span style="font-weight: bold">التفاصيل</span></td></tr><tr style="background-color: #f6f6f6" class="hide-td request_'.$item->request_id.'"><td colspan="6" style="text-align: center;"><span style="">'.$item->order_other.'</span></td></tr>';
             }else{
                 if($item->request_id != $prv_request_id){
                     $prv_request_id = $item->request_id;
-                    $generated_html.= '<tr class="show-details  " style="background-color: #d1ffc6"><td>*</td><td style="direction: ltr;text-align: center;"><span class="product-name">'. $item->phone_number .'</span></td><td><span class="product-price">'. $item->address .'</span></td><td><span class="unit-id" style="color: #e20205">'. number_format($item->cartTotalCost,2)  .' شيكل</span></td><td><span class="">'.$item->created_at.'</span></td><td class="text-center"><a href="#"  class="certify-request-btn" style="margin: 0px 3px;"><i class="  icon-check check-icon" style=" color: green;font-size: 18px;"></i></a><input type="hidden" name="product_id" class="product_id" value="'. $item->id.'" /><input type="hidden" name="request_id" class="request_id" value="'. $item->request_id.'" /></td></tr><tr style="background-color: #f1f1f1" class="hide-td request_'. $item->request_id.'"><td colspan="3"><span style="font-weight: bold">إسم المنتج</span></td><td><span style="font-weight: bold">السعر</span></td><td><span style="font-weight: bold">الكمية</span></td><td><span style="font-weight: bold">التكلفة</span></td></tr><tr style="background-color: #f6f6f6" class="hide-td request_'. $item->request_id.'"><td colspan="3"><span style="">'.  $item->product_name .'</span></td><td><span style="">'.  $item->product_price .'</span></td><td><span style="">'.  $item->quantity .'</span></td><td><span style="">'.  $item->buy_cost .'</span></td></tr>';
+                    $generated_html.= '<tr class="show-details  " style="background-color: #d1ffc6"><td>*</td><td style="direction: ltr;text-align: center;"><span class="product-name">'. $item->phone_number .'</span></td><td><span class="product-price">'. $item->address .'</span></td><td><span class="unit-id" style="color: #e20205">'. number_format($item->cartTotalCost,2)  .' شيكل</span></td><td><span class="">'.$item->created_at.'</span></td><td>'.$item->hints.'</td><td class="text-center"><a href="#"  class="certify-request-btn" style="margin: 0px 3px;"><i class="  icon-check check-icon" style=" color: green;font-size: 18px;"></i></a><input type="hidden" name="product_id" class="product_id" value="'. $item->id.'" /><input type="hidden" name="request_id" class="request_id" value="'. $item->request_id.'" /></td></tr><tr style="background-color: #f1f1f1" class="hide-td request_'. $item->request_id.'"><td colspan="3"><span style="font-weight: bold">إسم المنتج</span></td><td><span style="font-weight: bold">السعر</span></td><td><span style="font-weight: bold">الكمية</span></td><td><span style="font-weight: bold">التكلفة</span></td></tr><tr style="background-color: #f6f6f6" class="hide-td request_'. $item->request_id.'"><td colspan="3"><span style="">'.  $item->product_name .'</span></td><td><span style="">'.  $item->product_price .'</span></td><td><span style="">'.  $item->quantity .'</span></td><td><span style="">'.  $item->buy_cost .'</span></td></tr>';
                 }else{
                     $generated_html .= ' <tr style="background-color: #f6f6f6" class="hide-td request_'.$item->request_id .'"><td colspan="3"><span style="">'. $item->product_name  .'</span></td><td><span style="">'. $item->product_price  .'</span></td><td><span style="">'. $item->quantity  .'</span></td><td><span style="">'. $item->buy_cost  .'</span></td></tr>';
                 }
@@ -526,7 +526,36 @@ class ProductsController extends Controller
 
         echo json_encode(['result'=>'success']);
     }
-    
+    public function prepareRequests($id)
+    {
+
+        DB::table('requests')
+            ->where('request_id', $id)
+            ->update(['is_confirmed' => 2]);
+
+        echo json_encode(['result'=>'success']);
+    }
+
+    public function rejectRequests($id)
+    {
+
+        DB::table('requests')
+            ->where('request_id', $id)
+            ->update(['is_confirmed' => 3]);
+
+        echo json_encode(['result'=>'success']);
+    }
+    public function markRequests($id)
+    {
+        $user = DB::table('requests')
+            ->where('request_id', $id)
+            ->first();
+         DB::table('app_users')->where('number', $user->phone_number)->update(['is_marked' => 1]);
+
+
+        echo json_encode(['result'=>'success']);
+    }
+
     
     
     

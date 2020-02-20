@@ -1,76 +1,9 @@
-{{--@extends('layouts.app')--}}
-{{--@section('content')--}}
-{{--<div class="container">--}}
-    {{--<div class="row">--}}
-        {{--<div class="col-md-8 col-md-offset-2">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">Login</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">--}}
-                        {{--{{ csrf_field() }}--}}
-
-                        {{--<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">--}}
-                            {{--<label for="name" class="col-md-4 control-label">E-Mail Address</label>--}}
-
-                            {{--<div class="col-md-6">--}}
-                                {{--<input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>--}}
-
-                                {{--@if ($errors->has('name'))--}}
-                                    {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">--}}
-                            {{--<label for="password" class="col-md-4 control-label">Password</label>--}}
-
-                            {{--<div class="col-md-6">--}}
-                                {{--<input id="password" type="password" class="form-control" name="password" required>--}}
-
-                                {{--@if ($errors->has('password'))--}}
-                                    {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('password') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<div class="col-md-6 col-md-offset-4">--}}
-                                {{--<div class="checkbox">--}}
-                                    {{--<label>--}}
-                                        {{--<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me--}}
-                                    {{--</label>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<div class="col-md-8 col-md-offset-4">--}}
-                                {{--<button type="submit" class="btn btn-primary">--}}
-                                    {{--Login--}}
-                                {{--</button>--}}
-
-                                {{--<a class="btn btn-link" href="{{ route('password.request') }}">--}}
-                                    {{--Forgot Your Password?--}}
-                                {{--</a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-{{--@endsection--}}
 
 <!DOCTYPE html>
 <html >
 <head>
     <meta charset="UTF-8">
-    <title>Click Shop</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
@@ -79,19 +12,17 @@
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
-{{--    <link rel="stylesheet" href="{{asset("css/bootstrap.css")}}">--}}
-
 
 </head>
-<body style="background-image: url('{{asset("/images/educational_image2.jpg")}}'); background-size: auto;">
+<body style="background: white; background-size: auto;">
 
 <div class="container">
     <div class="info">
-        <h1>كليك شوب</h1>
+        <h1>{{ env('APP_NAME') }}</h1>
     </div>
 </div>
 <div class="form">
-    <div class="thumbnail" style="    padding: 34px 0px !important;"><img src="{{ asset("/images/logo_light.png") }}"/></div>
+    <div class="thumbnail" style="    padding: 34px 0px !important;"><img style="border-radius: 100px;" src="{{ asset("/images/logo_light.png") }}"/></div>
     <form class="login-form form-horizontal" role="form" method="POST" action="{{ route('login') }}" >
         {{ csrf_field() }}
         @if($errors->has('name') || $errors->has('password'))
@@ -104,7 +35,6 @@
         <input id="password" type="password" name="password" placeholder="ادخل كلمة المرور" class="{{ $errors->has('name') ? ' has-error' : '' }}"  required autocomplete="off"/>
 
         <button type="submit" >تسجيل دخول</button>
-        {{--<p class="message">Not registered? <a href="#">Create an account</a></p>--}}
         <div class="form-group">
             <div class="remember-me">
 

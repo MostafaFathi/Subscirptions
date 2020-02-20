@@ -6,13 +6,10 @@
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h6 class="panel-title">.</h6>
-                <a href="/allRequests" class="btn bg-green-400 btn-labeled new-center-btn" style="float:left;margin-top: -25px;">
-                    <b><i class=""></i></b> الكل
-                </a>
 
                 <div class="heading-elements">
 
-                    <span class="heading-text">الطلبات</span>
+                    <span class="heading-text">الاشتركات</span>
 
                 </div>
             </div>
@@ -20,198 +17,82 @@
             <div class="panel-body">
                 <div id="sales-heatmap"></div>
             </div>
-<div class="table-responsive">
-            <table class="table datatable-basic table-bordered dataTable no-footer" id="requests-table">
-                <thead>
-                <tr>
-                    <th>رقم</th>
-                    <th>رقم الجوال</th>
-                    <th>العنوان</th>
-                    <th>تكلفة الطلبية</th>
-                    <th>التوقيت</th>
-                    <th>عمليات</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php $prv_request_id = 0 ?>
-                @foreach($requests as $key => $item)
-                    @if($item->is_others  == 1)
-                        <tr class="show-details  ">
-                            <td>{{ $key+1 }}</td>
-                            <td style="direction: ltr; text-align: center;"><span class="product-name" >{{ $item->phone_number }}</span></td>
-                            <td><span class="product-price">{{ $item->address }}</span></td>
-                            <td><span class="unit-id" style="background-color: #E91E63;color: white;padding: 0px 11px;border-radius: 10px;">طلب نصي</span></td>
-                            <td><span class="" style="">{{ $item->created_at }}</span></td>
-                            <td class="text-center">
-
-                                <a href="#"  class="certify-request-btn" style="margin: 0px 3px;">
-                                    <i class="  icon-check check-icon" style=" color: green;font-size: 18px;"></i>
-                                </a>
-                                <input type="hidden" name="product_id" class="product_id" value="{{$item->id}}" />
-                                <input type="hidden" name="request_id" class="request_id" value="{{$item->request_id}}" />
-
-                            </td>
-                        </tr>
-                        <tr style="background-color: #f1f1f1" class="hide-td request_{{$item->request_id}}">
-                            <td colspan="6" style="text-align: center;"><span style="font-weight: bold">التفاصيل</span></td>
-                        </tr>
-                        <tr style="background-color: #f6f6f6" class="hide-td request_{{$item->request_id}}">
-                            <td colspan="6" style="text-align: center;"><span style="">{{ $item->order_other }}</span></td>
-                        </tr>
-                        @else
-                    @if($item->request_id != $prv_request_id)
-                        <?php $prv_request_id = $item->request_id?>
-                    <tr class="show-details  ">
-                        <td>{{ $key+1 }}</td>
-                        <td style="direction: ltr; text-align: center;"><span class="product-name" >{{ $item->phone_number }}</span></td>
-                        <td><span class="product-price">{{ $item->address }}</span></td>
-                        <td><span class="unit-id" style="color: #e20205">{{ number_format($item->cartTotalCost,2)  }} شيكل</span></td>
-                        <td><span class="">{{ $item->created_at }} </span></td>
-
-                        <td class="text-center">
-
-                            <a href="#"  class="certify-request-btn" style="margin: 0px 3px;">
-                                <i class="  icon-check check-icon" style=" color: green;font-size: 18px;"></i>
-                            </a>
-                            <input type="hidden" name="product_id" class="product_id" value="{{$item->id}}" />
-                            <input type="hidden" name="request_id" class="request_id" value="{{$item->request_id}}" />
-
-                        </td>
+            <div class="table-responsive">
+                <table class="table datatable-basic table-bordered dataTable no-footer" id="requests-table">
+                    <thead>
+                    <tr>
+                        <th>إسم المشترك</th>
+                        <th>نوع الاشتراك</th>
+                        <th>تاريخ نهاية الاشتراك</th>
+                        <th>متبقي (أيام)</th>
+                        <th>قيمة الاشتراك</th>
+                        <th>رقم الجوال</th>
+                        <th>ملاحظات</th>
                     </tr>
-                        <tr style="background-color: #f1f1f1" class="hide-td request_{{$item->request_id}}">
-                            <td colspan="3"><span style="font-weight: bold">إسم المنتج</span></td>
-                            <td><span style="font-weight: bold">السعر</span></td>
-                            <td><span style="font-weight: bold">الكمية</span></td>
-                            <td><span style="font-weight: bold">التكلفة</span></td>
-                        </tr>
-                       <tr style="background-color: #f6f6f6" class="hide-td request_{{$item->request_id}}">
-                           <td colspan="3"><span style="">{{ $item->product_name }}</span></td>
-                           <td><span style="">{{ $item->product_price }}</span></td>
-                           <td><span style="">{{ $item->quantity }}</span></td>
-                           <td><span style="">{{ $item->buy_cost }}</span></td>
-                       </tr>
-                    @else
-                        <tr style="background-color: #f6f6f6" class="hide-td request_{{$item->request_id}}">
-                            <td colspan="3"><span style="">{{ $item->product_name }}</span></td>
-                            <td><span style="">{{ $item->product_price }}</span></td>
-                            <td><span style="">{{ $item->quantity }}</span></td>
-                            <td><span style="">{{ $item->buy_cost }}</span></td>
-                        </tr>
-                     @endif
-                    @endif
-                @endforeach
+                    </thead>
+                    <tbody>
+                    @php $count = 0 @endphp
+                    @foreach($requests as $key => $item)
+                        @php
+                            $now = \Carbon\Carbon::now()->format('Y-m-d');
+                            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $item->end_at);
+                            $from = \Carbon\Carbon::createFromFormat('Y-m-d', $now);
+                            $diff_in_days = $from->diffInDays($to,false);
+                        @endphp
+                        @if($diff_in_days <= 10 && $diff_in_days >= -2)
+                            @php  $count = 1 @endphp
+                        <tr style="@if($diff_in_days <= 7) background: #fff2ed; @endif">
+                            <td>{{ $item->name }}</td>
+                            @php
+                                $interval_text = '';
+                                if($item->interval == 1)  $interval_text = 'يومي';
+                                if($item->interval == 2)  $interval_text = 'شهر';
+                                if($item->interval == 3)  $interval_text = '3 شهور';
+                                if($item->interval == 4)  $interval_text = '6 شهور';
+                                if($item->interval == 5)  $interval_text = 'سنوي';
+                                if($item->interval == 6)  $interval_text = 'VIP';
+                            @endphp
+                            <td>{{ $interval_text }}</td>
 
+                            <td><span class="@if($diff_in_days <= 7) end_date_danger @else end_date_warning @endif">{{$item->end_at}}</span></td>
+                            <td>@if($diff_in_days >= 0) {{$diff_in_days}} @else إشتراك منتهي @endif</td>
+                            <td>{{ $item->payment }}</td>
+                            <td>{{ $item->phone }}</td>
+                            <td>{{ $item->hints }}</td>
 
-                </tbody>
-            </table>
-</div>
+                        </tr>
+                        @endif
+                    @endforeach
+                        @if($count == 0)
+                        <tr>
+                            <td colspan="7" style="text-align: center">لا يوجد اشتراكات توشك على الانتهاء</td>
+                        </tr>
+                        @endif
+
+                    </tbody>
+                </table>
+            </div>
 
         </div>
     </div>
 
     <style>
-        #requests-table tr td, #requests-table tr th{
-        padding: 5px !important;
+        .end_date_danger{
+            background-color: #FF5722;
+            font-size: larger;
+            font-weight: bold;
+            color: white;
+            padding: 0px 10px;
+            border-radius: 5px;
+        }
+        .end_date_warning{
+            background-color: #FFC107;
+            font-size: larger;
+            font-weight: bold;
+            color: white;
+            padding: 0px 10px;
+            border-radius: 5px;
         }
     </style>
 
-    <script>
-
-             var myVar;
-             var thereOneRequest = false;
-             $(document).on('mouseover ',function(){
-                 clearInterval(myVar);
-                 $('.title-home').text('Click Shop');
-                 thereOneRequest = false;
-             })
-             var audio = new Audio('{{ asset('uploads/sound.mp3') }}');
-             var table_length = $('#requests-table tbody tr').length;
-
-             function getData(){
-                 var base_url = 'http://' + window.location.host+'/';
-console.log('lll')
-                 $.ajax({
-                     type: 'get',
-                     dataType: "json",
-                     url: base_url+ 'sse_notifications',
-                     data: "",
-                     cache: "false",
-                     success: function(data) {
-                         if($('#requests-table tbody tr').length == 0){
-                             $('#requests-table tbody').html(data['notifications']);
-                         }else{
-                             $('#requests-table tbody tr:first').before((data['notifications']));
-                         }
-
-
-                         if(table_length !== $('#requests-table tbody tr').length){
-
-                             console.log(table_length+' - '+$('#requests-table tbody tr').length)
-                             var counter = 0;
-                             if(!thereOneRequest){
-                                 myVar =  setInterval(function(){
-                                     if(counter % 2 == 0){
-                                         $('.title-home').text('طلب جديد')
-                                     }else{
-                                         $('.title-home').text('Click Shop')
-                                     }
-                                     counter++;
-                                 },1000);
-                             }
-                             audio.play();
-
-                             thereOneRequest = true;
-                             table_length = $('#requests-table tbody tr').length;
-                         }
-                     }
-
-                 });
-                 return false;
-
-             }
-             setInterval(function(){
-                 var base_url = 'http://' + window.location.host+'/';
-                 console.log('lll')
-                 $.ajax({
-                     type: 'get',
-                     dataType: "json",
-                     url: base_url+ 'sse_notifications',
-                     data: "",
-                     cache: "false",
-                     success: function(data) {
-                         if($('#requests-table tbody tr').length == 0){
-                             $('#requests-table tbody').html(data['notifications']);
-                         }else{
-                             $('#requests-table tbody tr:first').before((data['notifications']));
-                         }
-
-
-                         if(table_length !== $('#requests-table tbody tr').length){
-
-                             console.log(table_length+' - '+$('#requests-table tbody tr').length)
-                             var counter = 0;
-                             if(!thereOneRequest){
-                                 myVar =  setInterval(function(){
-                                     if(counter % 2 == 0){
-                                         $('.title-home').text('طلب جديد')
-                                     }else{
-                                         $('.title-home').text('Click Shop')
-                                     }
-                                     counter++;
-                                 },1000);
-                             }
-                             audio.play();
-
-                             thereOneRequest = true;
-                             table_length = $('#requests-table tbody tr').length;
-                         }
-                     }
-
-                 });
-                 return false;
-             },3000);
-
-
-
-    </script>
 @endsection

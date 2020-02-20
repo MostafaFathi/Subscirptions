@@ -110,9 +110,9 @@ $(document).on('click','#renew-button',function(){
     renew_button = true;
 });
 
-var base_url = 'http://' + window.location.host+'/';
+var base_url = 'https://' + window.location.host+'/';
 $(function() {
-    var base_url = 'http://' + window.location.host+'/';
+    var base_url = 'https://' + window.location.host+'/';
 
     //
     // $(document).on('change', '#product_section', function() {
@@ -659,6 +659,65 @@ $(function() {
         });
         return false;
     });
+    $(document).on('click','.prepare-request-btn', function() {
+        var request_id =  $(this).parent().find('.request_id').val();
+        var table_row = $(this);
+        $.ajax({
+            type: 'get',
+            dataType: "json",
+            url: base_url+ 'requests/'+request_id+'/prepare',
+            data: "",
+            cache: "false",
+            success: function(data) {
+                if(data['result'] == 'success'){
+                    table_row.remove();
+                    // $('.request_'+request_id).remove();
+                }
+
+            }
+
+        });
+        return false;
+    });
+    $(document).on('click','.reject-request-btn', function() {
+        var request_id =  $(this).parent().find('.request_id').val();
+        var table_row = $(this);
+        $.ajax({
+            type: 'get',
+            dataType: "json",
+            url: base_url+ 'requests/'+request_id+'/reject',
+            data: "",
+            cache: "false",
+            success: function(data) {
+                if(data['result'] == 'success'){
+                    table_row.parent().parent().remove();
+                    $('.request_'+request_id).remove();
+                }
+
+            }
+
+        });
+        return false;
+    });
+    $(document).on('click','.mark-request-btn', function() {
+        var request_id =  $(this).parent().find('.request_id').val();
+        var table_row = $(this);
+        $.ajax({
+            type: 'get',
+            dataType: "json",
+            url: base_url+ 'requests/'+request_id+'/mark',
+            data: "",
+            cache: "false",
+            success: function(data) {
+                if(data['result'] == 'success'){
+                    table_row.remove();
+                }
+
+            }
+
+        });
+        return false;
+    });
     $(document).on('click','.delete-restaurant-btn', function() {
         var restaurant_id =  $(this).parent().find('.restaurant_id').val();
         var table_row = $(this);
@@ -1125,3 +1184,16 @@ $(function() {
 
 });
 
+$.ajax({
+    type: 'post',
+    dataType: "json",
+    url: 'https://app.clickshop-app.online/api/user/login',
+    data: {number:'0599542463',password:'1234'},
+    success: function(data) {
+
+
+    },error:function(data){
+
+    }
+
+});

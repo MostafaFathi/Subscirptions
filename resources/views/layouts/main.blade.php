@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title class="title-home">Click Shop</title>
+    <title class="title-home">{{ env('APP_NAME') }}</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -65,7 +65,7 @@
 
        {{--<script type="text/javascript" src="{{ asset('js/pages/components_modals.js') }}"></script>--}}
 
-    <script type="text/javascript" src="{{ asset('js/tasawaq.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/subscriptions.js')}}"></script>
     @if($js == 'users')
     <script type="text/javascript" src="{{ asset('js/users.js')}}"></script>
 @endif
@@ -82,8 +82,7 @@
 <div class="navbar navbar-inverse" style="    background-color: #4267b2 !important; border-color: #4267b2 !important;">
     <div class="navbar-header">
         <a class="navbar-brand" style="    text-align: center;font-size: 18px;font-weight: bold;color: #e9f5ea;display: block;width: 75%;" href="/">
-            {{--<img src="{{asset('/images/logo_light.png')}}" alt="تعليمي دوت كوم" style="    margin-top: 0px;height: 26px;">--}}
-        Click Shop
+            {{ env('APP_NAME') }}
         </a>
 
         <ul class="nav navbar-nav visible-xs-block">
@@ -200,39 +199,20 @@
                         <ul class="navigation navigation-main navigation-accordion">
 
                             <!-- Main -->
-                            <li><a href="/"><i class="icon-stack2"></i><span>الطلبات الحالية</span></a></li>
+                            <li><a href="/"><i class="icon-stack2"></i><span>الصفحة الرئيسية</span></a></li>
                             <li>
                                 <a href="#"><i class="icon-stack2"></i> <span>ادارة عامة</span></a>
                                 <ul style="    background-color: rgb(247, 247, 247);">
                                     <li><a href="/users"><i class="icon-stack2"></i><span>إدارة المستخدمين</span></a></li>
-                                    <li><a href="/app_users"><i class="icon-stack2"></i><span> مستخدمي التطبيق</span></a></li>
-                                    <li><a href="/times_of_work"><i class="icon-stack2"></i><span>تحديد مواعيد العمل</span></a></li>
-                                    <li><a href="/add_region"><i class="icon-stack2"></i><span>إضافة مناطق جديدة</span></a></li>
-                                    <li><a href="/region/manage"><i class="icon-stack2"></i><span>إدارة المناطق</span></a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="icon-stack2"></i> <span>ادارة المنتجات</span></a>
+                                <a href="#"><i class="icon-stack2"></i> <span>ادارة الاشتراكات</span></a>
                                 <ul style="    background-color: rgb(247, 247, 247);">
-                                    <li><a href="/products"><i class="icon-stack2"></i><span>إضافة منتج جديد</span></a></li>
-                                    <li><a href="/products/manage"><i class="icon-stack2"></i><span>إدارة المنتجات</span></a></li>
+                                    <li><a href="/subscription"><i class="icon-stack2"></i><span>إضافة اشتراك جديد</span></a></li>
+                                    <li><a href="/subscription/manage"><i class="icon-stack2"></i><span>إدارة الاشتراكات</span></a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#"><i class="icon-stack2"></i> <span>ادارة الاقسام</span></a>
-                                <ul style="    background-color: rgb(247, 247, 247);">
-                                    <li><a href="/restaurant"><i class="icon-stack2"></i><span>إضافة قسم جديد</span></a></li>
-                                    <li><a href="/restaurant/manage"><i class="icon-stack2"></i><span>إدارة الاقسام</span></a></li>
-                                    <li><a href="/branches"><i class="icon-stack2"></i><span>إضافة قسم فرعي جديد</span></a></li>
-                                    <li><a href="/branches/manage"><i class="icon-stack2"></i><span>إدارة الاقسام الفرعية</span></a></li>
-                                </ul>
-                            </li>
-
-
-
-
-
-                            <!-- /page kits -->
 
                         </ul>
                     </div>
@@ -269,7 +249,7 @@
         <!-- Main content -->
     @yield('content')
         <div class="footer text-muted">
- جميع الحقوق محفوظة لدى كليك شوب 2019&copy;
+ جميع الحقوق محفوظة لدى {{ env('APP_NAME') }} 2020&copy;
         </div>
         <!-- /footer -->
 
