@@ -14,8 +14,8 @@
                 </div>
             </div>
 
-            <div class="panel-body">
-                <div id="sales-heatmap"></div>
+            <div class="panel-body" style="text-align: center">
+                <img style="width: 60%;" src="{{ asset("/images/logo_light.png") }}"/>
             </div>
             <div class="table-responsive">
                 <table class="table datatable-basic table-bordered dataTable no-footer" id="requests-table">
@@ -42,7 +42,9 @@
                         @if($diff_in_days <= 10 && $diff_in_days >= -2)
                             @php  $count = 1 @endphp
                         <tr style="@if($diff_in_days <= 7) background: #fff2ed; @endif">
-                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->name }}
+                                @if($diff_in_days <= 1 )  <img style="" src="{{ asset("/images/notify.gif") }}"/> @endif
+                            </td>
                             @php
                                 $interval_text = '';
                                 if($item->interval == 1)  $interval_text = 'يومي';
@@ -55,7 +57,9 @@
                             <td>{{ $interval_text }}</td>
 
                             <td><span class="@if($diff_in_days <= 7) end_date_danger @else end_date_warning @endif">{{$item->end_at}}</span></td>
-                            <td>@if($diff_in_days >= 0) {{$diff_in_days}} @else إشتراك منتهي @endif</td>
+                            <td>@if($diff_in_days >= 0) {{$diff_in_days}} @else إشتراك منتهي @endif
+
+                            </td>
                             <td>{{ $item->payment }}</td>
                             <td>{{ $item->phone }}</td>
                             <td>{{ $item->hints }}</td>

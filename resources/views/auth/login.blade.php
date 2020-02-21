@@ -16,14 +16,13 @@
 </head>
 <body style="background: white; background-size: auto;">
 
-<div class="container">
+<div class="container" style="max-width: 360px !important;">
     <div class="info">
-        <h1>{{ env('APP_NAME') }}</h1>
     </div>
 </div>
-<div class="form">
-    <div class="thumbnail" style="    padding: 34px 0px !important;"><img style="border-radius: 100px;" src="{{ asset("/images/logo_light.png") }}"/></div>
-    <form class="login-form form-horizontal" role="form" method="POST" action="{{ route('login') }}" >
+<div class="form" style="padding-top: 0px;height: 410px;">
+    <div class="" style="width: 100%;margin-bottom: 20px"><img style="width: 100%;" src="{{ asset("/images/logo_light.png") }}"/></div>
+    <form class="login-form form-horizontal" style="width: 100%" role="form" method="POST" action="{{ route('login') }}" >
         {{ csrf_field() }}
         @if($errors->has('name') || $errors->has('password'))
             <div class="error-message"> خطأ في إسم المستخدم أو كلمة المرور.!</div>

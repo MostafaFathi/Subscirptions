@@ -81,7 +81,7 @@
 <!-- Main navbar -->
 <div class="navbar navbar-inverse" style="    background-color: #4267b2 !important; border-color: #4267b2 !important;">
     <div class="navbar-header">
-        <a class="navbar-brand" style="    text-align: center;font-size: 18px;font-weight: bold;color: #e9f5ea;display: block;width: 75%;" href="/">
+        <a class="navbar-brand" style="    text-align: center;font-size: 14px;font-weight: bold;color: #e9f5ea;display: block;width: 75%;" href="/">
             {{ env('APP_NAME') }}
         </a>
 

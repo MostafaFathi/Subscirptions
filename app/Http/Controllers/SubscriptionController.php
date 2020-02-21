@@ -107,7 +107,7 @@ class SubscriptionController extends Controller
         if ($interval == 3) return \Carbon\Carbon::now()->addMonth(3)->format('Y-m-d');
         if ($interval == 4) return \Carbon\Carbon::now()->addMonth(6)->format('Y-m-d');
         if ($interval == 5) return \Carbon\Carbon::now()->addYear(1)->format('Y-m-d');
-        if ($interval == 6) return \Carbon\Carbon::now()->addYear(10)->format('Y-m-d');
+        if ($interval == 6) return \Carbon\Carbon::now()->addYear(1)->format('Y-m-d');
     }
 
     protected function checkIntervalChanges($old_interval, $new_interval)
