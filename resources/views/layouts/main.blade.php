@@ -77,7 +77,9 @@
 </head>
 
 <body>
+<style>
 
+</style>
 <!-- Main navbar -->
 <div class="navbar navbar-inverse" style="    background-color: #4267b2 !important; border-color: #4267b2 !important;">
     <div class="navbar-header">
@@ -91,11 +93,11 @@
         </ul>
     </div>
 
-    <div class="navbar-collapse collapse" id="navbar-mobile">
+    <div class="navbar-collapse collapse my-navbar-collapse" style="" id="navbar-mobile">
         <ul class="nav navbar-nav">
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right float-left margin-left-20">
+        <ul class="nav navbar-nav navbar-right float-left margin-left-20 my-nav-bar" style="">
 
 
                 <ul class="dropdown-menu">

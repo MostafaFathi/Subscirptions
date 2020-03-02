@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
 
 </head>
-<body style="background: white; background-size: auto;">
+<body style="background: #cccccc; background-size: auto;">
 
 <div class="container" style="max-width: 360px !important;">
     <div class="info">
     </div>
 </div>
-<div class="form" style="padding-top: 0px;height: 410px;">
+<div class="form" style="padding-top: 0px;height: 410px;border-radius: 37px;">
     <div class="" style="width: 100%;margin-bottom: 20px"><img style="width: 100%;" src="{{ asset("/images/logo_light.png") }}"/></div>
     <form class="login-form form-horizontal" style="width: 100%" role="form" method="POST" action="{{ route('login') }}" >
         {{ csrf_field() }}

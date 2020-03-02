@@ -130,7 +130,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @php $total = 0; @endphp
                         @foreach($subscriptions as $key => $item)
+                            @php $total += $item->payment; @endphp
                             <tr>
                                 <td class="name">{{ $item->name }}</td>
                                 @php
@@ -239,6 +241,15 @@
                                 </td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="3">
+
+                            </td>
+                            <td style="font-weight: bold;color:red;background-color: #f3f3f3"> إجمالي : {{$total}}</td>
+                            <td colspan="3">
+
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
             </div>
